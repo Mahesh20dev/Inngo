@@ -7,6 +7,7 @@ const { saveRedirectUrl } = require('../middleware.js');
 const userController=require('../controllers/user.js');
 const {isLoggedIn}=require("../middleware.js");
 
+router.get("/",wrapAsync(userController.home))
 
 router.route("/signup")
 .get(userController.signupform)

@@ -1,6 +1,9 @@
 const User=require("../models/user.js");
 const Listing=require('../models/listing.js');
 
+module.exports.home=async(req,res)=>{
+     res.redirect("/listings");
+}
 
 module.exports.signupform=(req,res)=>{
     res.render("users/signup.ejs");
