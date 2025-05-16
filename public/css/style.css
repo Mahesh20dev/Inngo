@@ -244,7 +244,7 @@ body{
   #map{
      height: 280px !important;
     margin-right: 25px !important;
-    offset: 1 !important;
+    width: 40vh !important;
     }
   
     .showtitle{
@@ -312,7 +312,7 @@ body{
 
   #map{
      height: 300px;
-    width: 50vh;
+    width: 40vh;
   }
 
   img{
