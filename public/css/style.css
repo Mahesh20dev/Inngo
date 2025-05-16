@@ -242,9 +242,9 @@ body{
   }
 
   #map{
-     height: 280px !important;
+     height: 260px !important;
     margin-right: 25px !important;
-    width: 40vh !important;
+    width: 35vh !important;
     }
   
     .showtitle{
@@ -256,7 +256,7 @@ body{
     }
 
     img{
-      width: 180px !important;
+      width: 35vh !important;
     }
 
 }
