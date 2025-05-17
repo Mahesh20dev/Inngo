@@ -4,6 +4,10 @@ A full-featured web application built with Node.js, Express, MongoDB, and EJS. T
 ## About Inngo
 Inngo is a dynamic web platform inspired by popular vacation rental services. It enables users to browse, list, and review rental properties seamlessly. The platform focuses on delivering a secure and user-friendly experience for both travelers seeking unique accommodations and hosts wanting to showcase their listings. Features include user authentication, property management, reviews, and real-time feedback via flash messages, making Inngo a complete solution for short-term rental needs.
 
+## Live Demo
+Check out the live version of the app here: [Inngo Live Demo](https://inngo.onrender.com)
+
+
 ## Features
 - User Authentication with Passport.js (Local Strategy)
 - CRUD operations for listings and reviews
