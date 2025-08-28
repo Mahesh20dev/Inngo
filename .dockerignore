@@ -1,0 +1,32 @@
+# Node modules (already installed inside container)
+node_modules
+
+# Logs
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+*.log
+
+# Env files (keep secrets safe, don’t push to image)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Git files
+.git
+.gitignore
+
+# Docker files (avoid recursion)
+.dockerignore
+Dockerfile
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Build caches or output
+dist
+build
+coverage

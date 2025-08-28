@@ -65,26 +65,29 @@ node app.js
 Open `http://localhost:3000` in your browser.
 
 ## Project Structure
-
-```
-.
-├── app.js                   # Main application file
-├── .env                     # Environment variables
-├── models/
-│   └── user.js              # Mongoose User model
-├── routes/
-│   ├── listing.js           # Routes for listings
-│   ├── reviews.js           # Routes for reviews
-│   └── user.js              # Routes for authentication
-├── utils/
-│   └── ExpressError.js      # Custom error handler
-├── views/
-│   ├── error.ejs            # Error page template
-│   └── ...                  # Other EJS templates
-├── public/
-│   └── ...                  # Static files (CSS, images)
-├── package.json
-└── README.md
+```bash
+AIRBNB/
+├── controllers/         # Controller files handling request/response logic
+├── init/                # Initialization files (DB connection, configs, etc.)
+├── models/              # Database models (e.g., Mongoose/Sequelize schemas)
+├── node_modules/        # Installed dependencies (ignored in Git & Docker)
+├── public/              # Static files (CSS, JS, images, etc.)
+├── routes/              # Application routes/endpoints
+├── utils/               # Utility/helper functions
+├── views/               # Templates or frontend view files
+│
+├── .dockerignore        # Files/folders ignored by Docker
+├── .env                 # Environment variables
+├── .gitignore           # Files/folders ignored by Git
+├── app.js               # Main application entry point
+├── cloudConfig.js       # Cloud-related configurations
+├── docker-compose.yml   # Docker Compose setup
+├── Dockerfile           # Docker image build instructions
+├── middleware.js        # Custom middleware functions
+├── package.json         # Project metadata & dependencies
+├── package-lock.json    # Dependency lock file
+├── README.md            # Project documentation
+└── schema.js            # Schema definitions (DB or validation)
 ```
 
 ## Deployment Tips
