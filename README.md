@@ -113,3 +113,25 @@ node app.js       # Start the server
 
 - If MongoDB Atlas URL or secret is invalid, app won't connect.
 - Flash messages rely on sessions; ensure `express-session` is correctly configured.
+
+## 🐳 Run with Docker
+
+You can run Inngo directly via Docker without installing Node.js manually.
+
+### Pull the Image
+```bash
+# Pull specific version
+docker pull maheshyc/inngo:1.0
+```
+### Create a .env File
+```bash
+ATLAS_KEY=your_mongodb_atlas_url
+SECRET=your_secure_secret_key
+NODE_ENV=production
+```
+### Run the Container
+```bash
+docker run -p 3000:3000 --env-file .env maheshyc/inngo:1.0
+```
+
+Now open 👉 `http://localhost:3000`

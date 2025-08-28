@@ -9,6 +9,5 @@ const userSchema=new Schema({
         required:true
     }
 })
-
 userSchema.plugin(passportlocalmongoose);
 module.exports=mongoose.model('User',userSchema);
