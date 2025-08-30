@@ -1,0 +1,126 @@
+<!-- Floating Chatbot Widget -->
+<div id="chatbot-widget" style="
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 320px;
+    max-height: 500px;        /* stays within 500px */
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;          /* prevents expanding */
+    z-index: 1000;
+">
+
+    <!-- Header -->
+    <div style="background: #007bff; color: #fff; padding: 12px; font-weight: 600; display:flex; justify-content:space-between; align-items:center;">
+        <span>💬 Chat Assistant</span>
+        <button onclick="toggleChatbot()" style="background:none; border:none; color:white; font-size:16px; cursor:pointer;">✖</button>
+    </div>
+
+    <!-- Chat Body -->
+    <div id="chat-body" style="
+        flex:1; 
+        padding: 12px; 
+        overflow-y: auto;   /* enable scroll */
+        font-size: 14px;
+        max-height: 250px;  /* keep stable, scroll when full */
+    ">
+        <p style="color:#6c757d;">👋 Hi! How can I help you today?</p>
+    </div> <!-- ✅ THIS was missing -->
+
+    <!-- Quick Options -->
+    <div id="chat-options" style="padding:10px; border-top:1px solid #ddd; display:flex; flex-wrap:wrap; gap:5px; background:#fff;">
+        <button class="btn btn-sm btn-outline-primary" onclick="sendPredefined('What is your refund policy?')">Refund</button>
+        <button class="btn btn-sm btn-outline-success" onclick="sendPredefined('How do I book a listing?')">Booking</button>
+        <button class="btn btn-sm btn-outline-warning" onclick="sendPredefined('Do you provide customer support?')">Support</button>
+        <button class="btn btn-sm btn-outline-danger" onclick="sendPredefined('Is payment secure?')">Payment</button>
+    </div>
+
+    <!-- Chat Input -->
+    <div style="padding:10px; border-top:1px solid #ddd; background:#fff; display:flex; gap:5px;">
+        <input id="chat-input" type="text" placeholder="Type your message..." 
+            style="flex:1; padding:8px; border:1px solid #ccc; border-radius:12px; font-size:14px;">
+        <button onclick="sendMessage()" 
+            style="background:#007bff; color:white; border:none; padding:8px 14px; border-radius:12px; cursor:pointer;">
+            ➤
+        </button>
+    </div>
+</div>
+
+<!-- Floating Button -->
+<button onclick="toggleChatbot()" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease-in-out;
+    z-index: 999;
+">
+💬
+</button>
+
+<script>
+    function toggleChatbot() {
+        const widget = document.getElementById("chatbot-widget");
+        widget.style.display = widget.style.display === "none" ? "flex" : "none";
+    }
+
+    async function sendPredefined(question) {
+        await processMessage(question);
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById("chat-input");
+        const message = input.value.trim();
+        if (!message) return;
+        input.value = "";
+        await processMessage(message);
+    }
+
+    async function processMessage(message) {
+        const chatBody = document.getElementById("chat-body");
+
+        // User message
+        chatBody.innerHTML += `<div style="margin:5px 0; text-align:right;">
+            <span style="background:#007bff; color:#fff; padding:6px 10px; border-radius:12px; display:inline-block; max-width:80%;">${message}</span>
+        </div>`;
+
+        // Loading placeholder
+        const loadingId = "loading-" + Date.now();
+        chatBody.innerHTML += `<div id="${loadingId}" style="margin:5px 0; text-align:left;">
+            <span style="background:#e9ecef; color:#212529; padding:6px 10px; border-radius:12px; display:inline-block; max-width:80%;">⏳ Typing...</span>
+        </div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // Send to backend
+        const res = await fetch("/chatbot", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message })
+        });
+
+        const data = await res.json();
+
+        // Remove loading
+        document.getElementById(loadingId).remove();
+
+        // Bot reply
+        chatBody.innerHTML += `<div style="margin:5px 0; text-align:left;">
+            <span style="background:#e9ecef; color:#212529; padding:6px 10px; border-radius:12px; display:inline-block; max-width:80%;">${data.reply}</span>
+        </div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+</script>

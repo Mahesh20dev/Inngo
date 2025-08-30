@@ -88,7 +88,7 @@ app.use((req,res,next)=>{
 app.use("/listings",listingsRoute);
 app.use("/listings/:id/review",reviewsRoute);
 app.use("/",userRoute);
-
+app.use("/chatbot", chatbotRoute);
 
 
 //middlewares and error handling
