@@ -7,9 +7,9 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 // ✅ Predefined Q&A
 const predefinedQA = {
-    "what is your refund policy": "Our refund policy allows cancellation within 24 hours for a full refund.",
-    "how do i book a listing": "To book a listing, go to the listings page, select your dates, and click 'Book Now'.",
-    "do you provide customer support": "Yes! We provide 24/7 customer support via chat and email.",
+    "what is your refund policy (similar to airbnb)": "Our refund policy allows cancellation within 24 hours for a full refund.",
+    "how do i book a listing (similar to airbnb)": "To book a listing, go to the listings page, select your dates, and click 'Book Now'.",
+    "do you provide customer support (similar to airbnb)": "Yes! We provide 24/7 customer support via chat and email.",
     "is payment secure": "Yes, all payments are processed securely using industry-standard encryption.",
 };
 

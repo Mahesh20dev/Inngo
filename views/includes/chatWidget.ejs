@@ -35,11 +35,22 @@
 
     <!-- Quick Options -->
     <div id="chat-options" style="padding:10px; border-top:1px solid #ddd; display:flex; flex-wrap:wrap; gap:5px; background:#fff;">
-        <button class="btn btn-sm btn-outline-primary" onclick="sendPredefined('What is your refund policy?')">Refund</button>
-        <button class="btn btn-sm btn-outline-success" onclick="sendPredefined('How do I book a listing?')">Booking</button>
-        <button class="btn btn-sm btn-outline-warning" onclick="sendPredefined('Do you provide customer support?')">Support</button>
-        <button class="btn btn-sm btn-outline-danger" onclick="sendPredefined('Is payment secure?')">Payment</button>
+        <button class="btn btn-sm btn-outline-primary" 
+            onclick="sendPredefined('how can I list my property on Inngo (Inngo is similar to airbnb) give answer with respect to airbnb but use Inngo in place of airbnb and do not use airbnb word in answer?')">
+            How to List a Property
+        </button>
+
+        <button class="btn btn-sm btn-outline-warning" 
+            onclick="sendPredefined('do you provide customer support (Inngo is similar to airbnb) give answer with respect to airbnb but use Inngo in place of airbnb and do not use airbnb word in answer?')">
+            Customer Support
+        </button>
+
+        <button class="btn btn-sm btn-outline-info" 
+            onclick="sendPredefined('how do reviews work on Inngo (Inngo is similar to airbnb) give answer with respect to airbnb but use Inngo in place of airbnb and do not use airbnb word in answer?')">
+            Reviews System
+        </button>
     </div>
+
 
     <!-- Chat Input -->
     <div style="padding:10px; border-top:1px solid #ddd; background:#fff; display:flex; gap:5px;">
@@ -90,37 +101,43 @@
         await processMessage(message);
     }
 
-    async function processMessage(message) {
-        const chatBody = document.getElementById("chat-body");
+    async function processMessage(message, displayMessage = null) {
+    const chatBody = document.getElementById("chat-body");
 
-        // User message
-        chatBody.innerHTML += `<div style="margin:5px 0; text-align:right;">
-            <span style="background:#007bff; color:#fff; padding:6px 10px; border-radius:12px; display:inline-block; max-width:80%;">${message}</span>
-        </div>`;
+    // Show clean version if available
+    const shownText = displayMessage || message;
 
-        // Loading placeholder
-        const loadingId = "loading-" + Date.now();
-        chatBody.innerHTML += `<div id="${loadingId}" style="margin:5px 0; text-align:left;">
-            <span style="background:#e9ecef; color:#212529; padding:6px 10px; border-radius:12px; display:inline-block; max-width:80%;">⏳ Typing...</span>
-        </div>`;
-        chatBody.scrollTop = chatBody.scrollHeight;
+    // User message in UI
+    chatBody.innerHTML += `<div style="margin:5px 0; text-align:right;">
+        <span style="background:#007bff; color:#fff; padding:6px 10px; border-radius:12px; display:inline-block; max-width:80%;">${shownText}</span>
+    </div>`;
 
-        // Send to backend
-        const res = await fetch("/chatbot", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message })
-        });
+    // Loading placeholder
+    const loadingId = "loading-" + Date.now();
+    chatBody.innerHTML += `<div id="${loadingId}" style="margin:5px 0; text-align:left;">
+        <span style="background:#e9ecef; color:#212529; padding:6px 10px; border-radius:12px; display:inline-block; max-width:80%;">⏳ Typing...</span>
+    </div>`;
+    chatBody.scrollTop = chatBody.scrollHeight;
 
-        const data = await res.json();
+    // ✅ Append instruction before sending to backend
+    const modifiedMessage = `${message} (Inngo is similar to airbnb) give answer with respect to airbnb but use Inngo in place of airbnb and do not use airbnb word in answer`;
 
-        // Remove loading
-        document.getElementById(loadingId).remove();
+    const res = await fetch("/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: modifiedMessage })
+    });
 
-        // Bot reply
-        chatBody.innerHTML += `<div style="margin:5px 0; text-align:left;">
-            <span style="background:#e9ecef; color:#212529; padding:6px 10px; border-radius:12px; display:inline-block; max-width:80%;">${data.reply}</span>
-        </div>`;
-        chatBody.scrollTop = chatBody.scrollHeight;
-    }
+    const data = await res.json();
+
+    // Remove loading
+    document.getElementById(loadingId).remove();
+
+    // Bot reply
+    chatBody.innerHTML += `<div style="margin:5px 0; text-align:left;">
+        <span style="background:#e9ecef; color:#212529; padding:6px 10px; border-radius:12px; display:inline-block; max-width:80%;">${data.reply}</span>
+    </div>`;
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
 </script>
