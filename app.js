@@ -29,7 +29,7 @@ const atlas_url=process.env.ATLAS_KEY;
 const listingsRoute=require("./routes/listing.js");
 const reviewsRoute=require("./routes/reviews.js");
 const userRoute=require("./routes/user.js");
-
+const chatbotRoute = require("./routes/chatbot.js");
 async function main(){
     await mongoose.connect(atlas_url);
 
