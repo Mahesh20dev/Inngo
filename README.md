@@ -81,7 +81,7 @@ AIRBNB/
 ├── .gitignore           # Files/folders ignored by Git
 ├── app.js               # Main application entry point
 ├── cloudConfig.js       # Cloud-related configurations
-├── docker-compose.yml   # Docker Compose setup
+├── docker-compose.yaml   # Docker Compose setup
 ├── Dockerfile           # Docker image build instructions
 ├── middleware.js        # Custom middleware functions
 ├── package.json         # Project metadata & dependencies
